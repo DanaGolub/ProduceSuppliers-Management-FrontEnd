@@ -1,0 +1,203 @@
+
+
+<!-- Show all items -->
+<h3>GET All Items</h3>
+
+<table>
+  <tr *ngFor="let product of _productsArray">
+      <td>
+          {{product.produceID}}
+      </td>
+      <td>
+          {{product.description}}
+      </td>
+      <td>
+          <a href="#" (click)="deleteProduct(product.produceID)">Delete</a>
+      </td>
+  </tr>
+</table>
+{{_errorMessage}}
+
+<br />
+
+<table>
+  <tr *ngFor="let supplier of _suppliersArray">
+      <td>
+          {{supplier.supplierID}}
+      </td>
+      <td>
+          {{supplier.supplierName}}
+      </td>
+      <td>
+          <a href="#" (click)="deleteSupplier(supplier.supplierID)">Delete</a>
+      </td>
+  </tr>
+</table>
+{{_errorMessage}}
+
+<br />
+
+<table>
+  <tr *ngFor="let productSuppl of _productSuppliersArray">
+      <td>
+          ProduceID: {{productSuppl.produceID}}
+      </td>
+      <td>
+          SupplierID: {{productSuppl.supplierID}}
+      </td>
+      <td>
+          Qty: {{productSuppl.qty}}
+      </td>
+      <!-- <td>
+          <a href="#" (click)="deleteProduct(productSuppl.produceID)">Delete</a>
+      </td> -->
+  </tr>
+</table>
+{{_errorMessage}}
+
+
+<hr/>
+<!-- Create product -->  
+<h3>Create product</h3>
+<form #userPostPr="ngForm" (ngSubmit)="createProduct(userPostPr.value)">
+  <b>Product Name: </b>
+  <input type="text" name="description" ngModel placeholder="dog"> &nbsp;&nbsp;
+  <button type="submit">submit</button>
+ </form>
+ <br>
+ <!-- Create supplier -->  
+<h3>Create supplier</h3>
+<form #userPostSuppl="ngForm" (ngSubmit)="createSupplier(userPostSuppl.value)">
+  <b>Supplier Name: </b>
+  <input type="text" name="supplierName" ngModel placeholder="dog"> &nbsp;&nbsp;
+  <button type="submit">submit</button>
+ </form>
+ <br>
+ <!-- Create productSupplier record -->  
+<h3>Create productSupplier</h3>
+<form #userPost="ngForm" (ngSubmit)="createProductsSupplier(userPost.value)">
+    <br />
+  <b>ProductSupplier record: </b>
+  <br />
+  ProduceID:
+  <input type="text" name="produceID" ngModel placeholder="dog"> &nbsp;&nbsp;
+  <br />
+  SupplierID:
+  <input type="text" name="supplierID" ngModel placeholder="dog"> &nbsp;&nbsp;
+  <br />
+  Quantity:
+  <input type="text" name="qty" ngModel placeholder="dog"> &nbsp;&nbsp;
+  <br />
+  <button type="submit">submit</button>
+ </form>
+ <br>
+ <hr/>
+
+<!-- Edit data -->
+<h3>Edit Product</h3>
+<select [(ngModel)]="_editPrId">
+  <option *ngFor="let product of _productsArray" value={{product.produceID}}>
+  {{product.produceID}} {{product.description}}
+  </option>
+</select>
+Update Description: <input type="text" [(ngModel)]="_editableDescription">
+<input type="submit" value="Submit New Description" (click)="updateProduct()">
+<br><br>
+
+<h3>Edit Supplier</h3>
+<select [(ngModel)]="_editSupplId">
+  <option *ngFor="let supplier of _suppliersArray" value={{supplier.supplierID}}>
+  {{supplier.supplierID}} {{supplier.supplierName}}
+  </option>
+</select>
+Update Supplier Name: <input type="text" [(ngModel)]="_editableSupplierName">
+<input type="submit" value="Submit New Supplier Name" (click)="updateSupplier()">
+<br><br>
+
+<h3>Edit ProductSupplier</h3>
+<select [(ngModel)]="_editPrId">
+  <option *ngFor="let prodSuppl of _productSuppliersArray" value={{prodSuppl.produceID}}>
+    {{prodSuppl.produceID}} {{prodSuppl.description}}
+</option>
+</select>
+<select [(ngModel)]="_editSupplId">
+  <option *ngFor="let prodSuppl of _productSuppliersArray" value={{prodSuppl.supplierID}}>
+  {{prodSuppl.supplierID}}{{prodSuppl.supplierName}}
+  </option>
+</select>
+Update Quantity: <input type="number" [(ngModel)]="_editQuantity">
+{{this._editQuantity}}
+<input type="submit" value="Submit New Description" (click)="updateProductsSuppliers()">
+<br><br>
+<hr/>
+
+
+<!-- Find Single Produce -->
+<h3>Get Single Product</h3>
+<table>
+<tr *ngFor="let product of _productsArray">
+    <td>
+        {{product.description}}
+    </td>
+    <td>
+        <input type="radio"  name="selectProduct" value={{product.produceID}}
+        (click)="getProduct(product.produceID)"> 
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>{{_singleProductName}}</b>
+    </td>
+    <td>
+        <b>{{_singleProductNumber}}</b>
+    </td>
+</tr>
+</table>
+
+<!-- Find Single Produce -->
+<h3>Get Single Supplier</h3>
+<table>
+<tr *ngFor="let supplier of _suppliersArray">
+    <td>
+        {{supplier.supplierName}}
+    </td>
+    <td>
+        <input type="radio"  name="selectProduct" value={{supplier.supplierID}}
+        (click)="getSupplier(supplier.supplierID)"> 
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>{{_singleSupplierName}}</b>
+    </td>
+    <td>
+        <b>{{_singleSupplierNumber}}</b>
+    </td>
+</tr>
+</table>
+
+
+<h3>Find ProductSupplier record</h3>
+<table>
+<tr *ngFor="let prodSuppl of _productSuppliersArray">
+    <td>
+        ProductID: {{prodSuppl.produceID}}
+        SupplierID: {{prodSuppl.supplierID}}
+    </td>
+    <td>
+        <input type="radio"  name="selectProductSupplier" value={{prodSuppl.produceID}} value={{prodSuppl.supplierID}}
+        (click)="getProductsSupplier(prodSuppl.produceID, prodSuppl.supplierID)">
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>{{_prodID}}</b>
+    </td>
+    <td>
+        <b>{{_supplID}}</b>
+    </td>
+    <td>
+        <b>{{_prodSupplQty}}</b>
+    </td>
+</tr>
+</table>
