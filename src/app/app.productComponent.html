@@ -1,203 +1,272 @@
-
-
 <!-- Show all items -->
-<h3>GET All Items</h3>
+<h3>GET ALL ITEMS</h3>
+<div class="table-section">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Produce ID</th>
+                <th scope="col">Produce Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of _productsArray">
+                <td class="text-centre">{{product.produceID}}</td>
+                <td>{{product.description}}</td>
+                <td><a href="#" (click)="deleteProduct(product.produceID)">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    {{_errorMessage}}
 
-<table>
-  <tr *ngFor="let product of _productsArray">
-      <td>
-          {{product.produceID}}
-      </td>
-      <td>
-          {{product.description}}
-      </td>
-      <td>
-          <a href="#" (click)="deleteProduct(product.produceID)">Delete</a>
-      </td>
-  </tr>
-</table>
-{{_errorMessage}}
+    <br />
 
-<br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Supplier ID</th>
+                <th scope="col">Supplier Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let supplier of _suppliersArray">
+                <td class="text-centre">{{supplier.supplierID}}</td>
+                <td>{{supplier.supplierName}}</td>
+                <td><a href="#" (click)="deleteSupplier(supplier.supplierID)">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    {{_errorMessage}}
 
-<table>
-  <tr *ngFor="let supplier of _suppliersArray">
-      <td>
-          {{supplier.supplierID}}
-      </td>
-      <td>
-          {{supplier.supplierName}}
-      </td>
-      <td>
-          <a href="#" (click)="deleteSupplier(supplier.supplierID)">Delete</a>
-      </td>
-  </tr>
-</table>
-{{_errorMessage}}
+    <br />
 
-<br />
-
-<table>
-  <tr *ngFor="let productSuppl of _productSuppliersArray">
-      <td>
-          ProduceID: {{productSuppl.produceID}}
-      </td>
-      <td>
-          SupplierID: {{productSuppl.supplierID}}
-      </td>
-      <td>
-          Qty: {{productSuppl.qty}}
-      </td>
-      <!-- <td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Produce ID</th>
+                <th scope="col">Supplier ID</th>
+                <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let productSuppl of _productSuppliersArray">
+                <td *ngIf="productSuppl.produceID">{{productSuppl.produceID}}</td>
+                <td *ngIf="productSuppl.supplierID">{{productSuppl.supplierID}}</td>
+                <td *ngIf="productSuppl.produceID"> {{productSuppl.qty}}</td>
+                <!-- <td>
           <a href="#" (click)="deleteProduct(productSuppl.produceID)">Delete</a>
       </td> -->
-  </tr>
-</table>
-{{_errorMessage}}
+            </tr>
+        </tbody>
+    </table>
+    {{_errorMessage}}
 
 
-<hr/>
-<!-- Create product -->  
-<h3>Create product</h3>
+</div>
+<!-- Create product -->
+<h3>CREATE PRODUCT</h3>
 <form #userPostPr="ngForm" (ngSubmit)="createProduct(userPostPr.value)">
-  <b>Product Name: </b>
-  <input type="text" name="description" ngModel placeholder="dog"> &nbsp;&nbsp;
-  <button type="submit">submit</button>
- </form>
- <br>
- <!-- Create supplier -->  
-<h3>Create supplier</h3>
+    <div class="mb-3">
+        <label class="form-label">Product Name: </label>
+        <input class="form-control" type="text" name="description" ngModel placeholder="Product Description">
+    </div>
+    <!-- <div class="d-grid gap-2 col-1 mx-auto"> -->
+    <button class="btn btn-warning" type="submit">SUBMIT</button>
+    <!-- </div> -->
+</form>
+<!-- </div> -->
+
+<br>
+<!-- Create supplier -->
+<h3>CREATE SUPPLIER</h3>
 <form #userPostSuppl="ngForm" (ngSubmit)="createSupplier(userPostSuppl.value)">
-  <b>Supplier Name: </b>
-  <input type="text" name="supplierName" ngModel placeholder="dog"> &nbsp;&nbsp;
-  <button type="submit">submit</button>
- </form>
- <br>
- <!-- Create productSupplier record -->  
-<h3>Create productSupplier</h3>
+    <div class="mb-3">
+        <label class="form-label">Supplier Name: </label>
+        <input class="form-control" type="text" name="supplierName" ngModel placeholder="Supplier Name">
+    </div>
+    <!-- <div class="d-grid gap-2 col-1 mx-auto"> -->
+    <button class="btn btn-warning" type="submit">SUBMIT</button>
+    <!-- </div> -->
+</form>
+
+<br>
+<!-- Create productSupplier record -->
+<h3>CREATE PRODUCE SUPPLIER</h3>
 <form #userPost="ngForm" (ngSubmit)="createProductsSupplier(userPost.value)">
     <br />
-  <b>ProductSupplier record: </b>
-  <br />
-  ProduceID:
-  <input type="text" name="produceID" ngModel placeholder="dog"> &nbsp;&nbsp;
-  <br />
-  SupplierID:
-  <input type="text" name="supplierID" ngModel placeholder="dog"> &nbsp;&nbsp;
-  <br />
-  Quantity:
-  <input type="text" name="qty" ngModel placeholder="dog"> &nbsp;&nbsp;
-  <br />
-  <button type="submit">submit</button>
- </form>
- <br>
- <hr/>
+    <!-- <label class="form-label">Product Supplier record: </label> -->
+    <div class="mb-3">
+        <label class="form-label"> Produce ID: </label>
+        <input class="form-control" type="text" name="produceID" ngModel placeholder="Produce ID">
+    </div>
+    <div class="mb-3">
+        <label class="form-label"> Supplier ID: </label>
+        <input class="form-control" type="text" name="supplierID" ngModel placeholder="Supplier ID">
+    </div>
+    <div class="mb-3">
+        <label class="form-label"> Quantity : </label>
+        <input class="form-control" type="text" name="qty" ngModel placeholder="Quantity">
+    </div>
+    <button class="btn btn-warning" type="submit">SUBMIT</button>
+    <p *ngIf="this._errorMessage">{{this._errorMessage}}</p>
+</form>
+<br>
+<hr />
 
-<!-- Edit data -->
-<h3>Edit Product</h3>
-<select [(ngModel)]="_editPrId">
-  <option *ngFor="let product of _productsArray" value={{product.produceID}}>
-  {{product.produceID}} {{product.description}}
-  </option>
-</select>
-Update Description: <input type="text" [(ngModel)]="_editableDescription">
-<input type="submit" value="Submit New Description" (click)="updateProduct()">
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+<h3>EDIT PRODUCT</h3>
+<label class="form-label"> Current Product Description: </label>
+<select class="form-select" aria-label="Default select example" [(ngModel)]="_editPrId">
+    <option *ngFor="let product of _productsArray" value={{product.produceID}}>
+        ID: {{product.produceID}} DESCRIPTION: {{product.description}}
+        <!-- {{product.description}} -->
+    </option>
+</select><br />
+<div class="mb-3">
+    <label class="form-label"> Update Product Description: </label>
+    <input class="form-control" type="text" [(ngModel)]="_editableDescription">
+</div>
+<input class="btn btn-warning" type="submit" value="SUBMIT" (click)="updateProduct()">
 <br><br>
 
-<h3>Edit Supplier</h3>
-<select [(ngModel)]="_editSupplId">
-  <option *ngFor="let supplier of _suppliersArray" value={{supplier.supplierID}}>
-  {{supplier.supplierID}} {{supplier.supplierName}}
-  </option>
-</select>
-Update Supplier Name: <input type="text" [(ngModel)]="_editableSupplierName">
-<input type="submit" value="Submit New Supplier Name" (click)="updateSupplier()">
+<h3>EDIT SUPPLIER</h3>
+<label class="form-label"> Current Supplier Name: </label>
+<select class="form-select" aria-label="Default select example" [(ngModel)]="_editSupplId">
+    <option *ngFor="let supplier of _suppliersArray" value={{supplier.supplierID}}>
+        ID: {{supplier.supplierID}} NAME: {{supplier.supplierName}}
+        <!-- {{supplier.supplierName}} -->
+    </option>
+</select><br />
+<div class="mb-3">
+    <label class="form-label"> Update Supplier Name: </label>
+    <input class="form-control" type="text" [(ngModel)]="_editableSupplierName">
+</div>
+<input class="btn btn-warning" type="submit" value="SUBMIT" (click)="updateSupplier()">
 <br><br>
 
-<h3>Edit ProductSupplier</h3>
-<select [(ngModel)]="_editPrId">
-  <option *ngFor="let prodSuppl of _productSuppliersArray" value={{prodSuppl.produceID}}>
-    {{prodSuppl.produceID}} {{prodSuppl.description}}
-</option>
+<h3>EDIT PRODUCT SUPPLIER</h3>
+<label class="form-label"> Produce ID: </label>
+<select class="form-select" aria-label="Default select example" [(ngModel)]="_editPrId">
+    <option *ngFor="let prodSuppl of _productSuppliersArray" value={{prodSuppl.produceID}}>
+        ID: {{prodSuppl.produceID}}
+    </option>
 </select>
-<select [(ngModel)]="_editSupplId">
-  <option *ngFor="let prodSuppl of _productSuppliersArray" value={{prodSuppl.supplierID}}>
-  {{prodSuppl.supplierID}}{{prodSuppl.supplierName}}
-  </option>
+<br />
+<label class="form-label"> Supplier ID: </label>
+<select class="form-select" aria-label="Default select example" [(ngModel)]="_editSupplId">
+    <option *ngFor="let prodSuppl of _productSuppliersArray" value={{prodSuppl.supplierID}}>
+        ID: {{prodSuppl.supplierID}}
+    </option>
 </select>
-Update Quantity: <input type="number" [(ngModel)]="_editQuantity">
-{{this._editQuantity}}
-<input type="submit" value="Submit New Description" (click)="updateProductsSuppliers()">
+<br />
+<div class="mb-3">
+    <label class="form-label"> Update Quantity: </label>
+    <input class="form-control" type="number" [(ngModel)]="_editQuantity">
+</div>
+<input class="btn btn-warning" type="submit" value="SUBMIT" (click)="updateProductsSuppliers()">
 <br><br>
-<hr/>
+<hr />
 
 
 <!-- Find Single Produce -->
-<h3>Get Single Product</h3>
-<table>
-<tr *ngFor="let product of _productsArray">
-    <td>
-        {{product.description}}
-    </td>
-    <td>
-        <input type="radio"  name="selectProduct" value={{product.produceID}}
-        (click)="getProduct(product.produceID)"> 
-    </td>
-</tr>
-<tr>
-    <td>
-        <b>{{_singleProductName}}</b>
-    </td>
-    <td>
-        <b>{{_singleProductNumber}}</b>
-    </td>
-</tr>
-</table>
+<h3>GET SINGLE PRODUCT</h3>
+<div class="table-section">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Produce Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of _productsArray">
+                <td>
+                    {{product.description}}
+                </td>
+                <td>
+                    <input type="radio" name="selectProduct" value={{product.produceID}}
+                        (click)="getProduct(product.produceID)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{{_singleProductName}}</b>
+                </td>
+                <td>
+                    <b>ID: {{_singleProductNumber}}</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <!-- Find Single Produce -->
-<h3>Get Single Supplier</h3>
-<table>
-<tr *ngFor="let supplier of _suppliersArray">
-    <td>
-        {{supplier.supplierName}}
-    </td>
-    <td>
-        <input type="radio"  name="selectProduct" value={{supplier.supplierID}}
-        (click)="getSupplier(supplier.supplierID)"> 
-    </td>
-</tr>
-<tr>
-    <td>
-        <b>{{_singleSupplierName}}</b>
-    </td>
-    <td>
-        <b>{{_singleSupplierNumber}}</b>
-    </td>
-</tr>
-</table>
+<h3>GET SINGLE SUPPLIER</h3>
+<div class="table-section">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Produce Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let supplier of _suppliersArray">
+                <td>
+                    {{supplier.supplierName}}
+                </td>
+                <td>
+                    <input type="radio" name="selectProduct" value={{supplier.supplierID}}
+                        (click)="getSupplier(supplier.supplierID)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{{_singleSupplierName}}</b>
+                </td>
+                <td>
+                    <b>ID: {{_singleSupplierNumber}}</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
-<h3>Find ProductSupplier record</h3>
+<h3>GET PRODUCT SUPPLIER RECORD</h3>
 <table>
-<tr *ngFor="let prodSuppl of _productSuppliersArray">
-    <td>
-        ProductID: {{prodSuppl.produceID}}
-        SupplierID: {{prodSuppl.supplierID}}
-    </td>
-    <td>
-        <input type="radio"  name="selectProductSupplier" value={{prodSuppl.produceID}} value={{prodSuppl.supplierID}}
-        (click)="getProductsSupplier(prodSuppl.produceID, prodSuppl.supplierID)">
-    </td>
-</tr>
-<tr>
-    <td>
-        <b>{{_prodID}}</b>
-    </td>
-    <td>
-        <b>{{_supplID}}</b>
-    </td>
-    <td>
-        <b>{{_prodSupplQty}}</b>
-    </td>
-</tr>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Produce AND Supplier</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prodSuppl of _productSuppliersArray">
+                <td>
+                    ProductID: {{prodSuppl.produceID}} &
+                    SupplierID: {{prodSuppl.supplierID}}
+                </td>
+                <td></td>
+                <td>
+                    <input type="radio" name="selectProductSupplier" value={{prodSuppl.produceID}}
+                        value={{prodSuppl.supplierID}}
+                        (click)="getProductsSupplier(prodSuppl.produceID, prodSuppl.supplierID)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Produce ID: {{_prodID}}</b>
+                </td>
+                <td>
+                    <b>Supplier ID:{{_supplID}}</b>
+                </td>
+                <td>
+                    <b>Quantity: {{_prodSupplQty}}</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>

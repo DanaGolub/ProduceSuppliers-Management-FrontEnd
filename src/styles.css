@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+body { 
+  margin: 2em; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  font-weight: bold;
+
+}
+
+table {
+    width: 100%;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  /* .table-section {
+    margin: 3em 4em;
+  } */

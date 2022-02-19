@@ -5,12 +5,16 @@ const BASE_URL_PRODUCTS = 'https://localhost:44384/api/Produce';
 const BASE_URL_SUPPLIERS = 'https://localhost:44384/api/Supplier';
 const BASE_URL_PRODUCT_SUPPLIERS = 'https://localhost:44384/api/ProduceSupplier';
 
+
+
 @Component({
     selector: 'addProductForm',
-    templateUrl: './app.productComponent.html'
+    templateUrl: './app.productComponent.html',
+    styleUrls: ['./app.productComponent.css']
 })
 
 export class productComponent {
+    displayedColumns: string[] = ['Product ID', 'Product Name', ''];
     _productsArray: Array<any>;
     _suppliersArray: Array<any>;
     _productSuppliersArray: Array<any>;
@@ -158,11 +162,11 @@ export class productComponent {
                     this._errorMessage = JSON.stringify(error);
                 })
     }
-    getProductsSupplier(id1Prod, idSuppl) {
+    getProductsSupplier(idProd, idSuppl) {
         console.log("------------------------------------------------");
-        console.log("getProduct base url ==> [get] " + BASE_URL_PRODUCT_SUPPLIERS + id1Prod + "/" + idSuppl);
+        console.log("getProduct base url ==> [get] " + BASE_URL_PRODUCT_SUPPLIERS + idProd + "/" + idSuppl);
 
-        let url = BASE_URL_PRODUCT_SUPPLIERS + "/" + id1Prod + "/" + idSuppl;
+        let url = BASE_URL_PRODUCT_SUPPLIERS + "/" + idProd + "/" + idSuppl;
         this.http.get<any>(url)
             // Get data and wait for result.
             .subscribe(result => {
@@ -230,13 +234,12 @@ export class productComponent {
                 console.log("POST call successful. Inspect response.", JSON.stringify(data));
                 this._errorMessage = data["errorMessage"];
                 this.getAllProductSuppliers();
-
             },
                 error => { // An error occurred. Data is not received.
                     console.log(data + " ==> 3, error ==> " + JSON.stringify(error));
-                    //this._errorMessage = JSON.stringify(error);                
+                    // this._errorMessage = JSON.stringify(error);            
+                this._errorMessage = "Error occurred";
                 });
-
         console.log(data);
     }
     //DELETE REQUESTS /////////////////////////////////////////////////////////////////////////////////////////////
@@ -253,6 +256,7 @@ export class productComponent {
             (data) => {
                 this._errorMessage = data["errorMessage"];
                 this.getAllProducts();
+                this.getAllProductSuppliers();
             },
             // An error occurred. Data is not received. 
             error => {
@@ -272,6 +276,7 @@ export class productComponent {
             (data) => {
                 this._errorMessage = data["errorMessage"];
                 this.getAllSuppliers();
+                this.getAllProductSuppliers();
             },
             // An error occurred. Data is not received. 
             error => {
