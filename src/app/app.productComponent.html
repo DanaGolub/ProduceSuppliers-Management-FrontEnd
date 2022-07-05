@@ -54,9 +54,6 @@
                 <td *ngIf="productSuppl.produceID">{{productSuppl.produceID}}</td>
                 <td *ngIf="productSuppl.supplierID">{{productSuppl.supplierID}}</td>
                 <td *ngIf="productSuppl.produceID"> {{productSuppl.qty}}</td>
-                <!-- <td>
-          <a href="#" (click)="deleteProduct(productSuppl.produceID)">Delete</a>
-      </td> -->
             </tr>
         </tbody>
     </table>
@@ -71,11 +68,8 @@
         <label class="form-label">Product Name: </label>
         <input class="form-control" type="text" name="description" ngModel placeholder="Product Description">
     </div>
-    <!-- <div class="d-grid gap-2 col-1 mx-auto"> -->
     <button class="btn btn-warning" type="submit">SUBMIT</button>
-    <!-- </div> -->
 </form>
-<!-- </div> -->
 
 <br>
 <!-- Create supplier -->
@@ -85,9 +79,7 @@
         <label class="form-label">Supplier Name: </label>
         <input class="form-control" type="text" name="supplierName" ngModel placeholder="Supplier Name">
     </div>
-    <!-- <div class="d-grid gap-2 col-1 mx-auto"> -->
     <button class="btn btn-warning" type="submit">SUBMIT</button>
-    <!-- </div> -->
 </form>
 
 <br>
@@ -95,7 +87,6 @@
 <h3>CREATE PRODUCE SUPPLIER</h3>
 <form #userPost="ngForm" (ngSubmit)="createProductsSupplier(userPost.value)">
     <br />
-    <!-- <label class="form-label">Product Supplier record: </label> -->
     <div class="mb-3">
         <label class="form-label"> Produce ID: </label>
         <input class="form-control" type="text" name="produceID" ngModel placeholder="Produce ID">
@@ -121,7 +112,6 @@
 <select class="form-select" aria-label="Default select example" [(ngModel)]="_editPrId">
     <option *ngFor="let product of _productsArray" value={{product.produceID}}>
         ID: {{product.produceID}} DESCRIPTION: {{product.description}}
-        <!-- {{product.description}} -->
     </option>
 </select><br />
 <div class="mb-3">
@@ -136,7 +126,6 @@
 <select class="form-select" aria-label="Default select example" [(ngModel)]="_editSupplId">
     <option *ngFor="let supplier of _suppliersArray" value={{supplier.supplierID}}>
         ID: {{supplier.supplierID}} NAME: {{supplier.supplierName}}
-        <!-- {{supplier.supplierName}} -->
     </option>
 </select><br />
 <div class="mb-3">

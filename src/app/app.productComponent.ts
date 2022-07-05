@@ -173,7 +173,7 @@ export class productComponent {
                 console.log(result)
                 this._prodID = result.produceID;
                 this._supplID = result.supplierID;
-                this._prodSupplQty= result.qty;
+                this._prodSupplQty = result.qty;
             },
                 error => {
                     // Let user know about the error.
@@ -238,7 +238,7 @@ export class productComponent {
                 error => { // An error occurred. Data is not received.
                     console.log(data + " ==> 3, error ==> " + JSON.stringify(error));
                     // this._errorMessage = JSON.stringify(error);            
-                this._errorMessage = "Error occurred";
+                    this._errorMessage = "Error occurred";
                 });
         console.log(data);
     }
